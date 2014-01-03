@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/eu12_vars.js"></script>
+    <script src="js/exporttool.js"></script>
+    <script src="http://api.omd.li/runs/lastwiki"></script>
+
+    <style>
+    
+      body {
+	font-family: sans-serif;
+	padding-bottom: 120px;
+      }
+    
+      .exportbar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100px;
+	padding: 10px;
+	box-shadow: 0 0 4px 1px gray;
+	background-color: white;
+      }
+      
+      .outformat a {
+	border-radius: 4px;
+	border: 1px solid #428bca;
+	padding: 2px;
+	color: #428bca;
+	text-decoration: none;
+      }
+      
+      .outformat a:hover {
+	border-radius: 4px;
+	border: 1px solid transparent;
+	background-color: #428bca;
+	padding: 2px;
+	color: white;
+      }
+      
+      #url {
+	border-radius: 4px;
+	border: 1px solid #428bca;
+	padding: 2px;
+	font-size: 110%;
+	width: 80%;
+      }
+      
+      #dlbutton {
+	border-radius: 4px;
+	border: 1px solid #428bca;
+	padding: 2px;
+	font-size: 120%;
+	text-decoration: none;
+      }
+      
+      #contourint {
+	width: 100px;
+      }
+      
+    </style>
+  </head>
+  <body>  
+    <h1><em>Open Meteo Forecast</em> data export tool</h1>
+    
+    <p>This tool is a first working draft. It's still missing a lot of features...</p>
+    <p>You are welcome to contribute for making it better : github.com/fddsfds</p>
+    
+    <h2>Dataset</h2>
+    <select>
+      <option>EU12 : 12km over Europe</option>
+      <option disabled="disabled">GFS : Global 55km (coming soon...)</option>
+    </select>
+    <img src="https://openmeteoforecast.org/images/thumb/1/11/Eu12-coverage.png/300px-Eu12-coverage.png" style="float: right;">
+    <p>EU12 is a 12km resolution regional weather model over Europe. It's run 4 times a day on the <a href="http://openmeteofoundation.org" target="_blank">Open Meteo Foundation</a>'s supercomputer.</p>
+    <p>This model produces hourly data for the next 72 hours.</p>
+    <p>The data is available under Open Data Commons Attribution Licence (ODC-By). Which means the data is freely available for any use, as long as you attribute the source.</p>
+    <h2>Time</h2>
+    <p>
+      Run (model initialisation time) :<br>
+      <select id="runSelect">
+      </select>
+    </p>
+    <p>
+      Frame (forecast time) :<br>
+      <select id="frameSelect">
+      </select>
+    </p>
+    
+    <h2>Data</h2>
+    
+    <p>
+      Raw model output data:<br>
+      <select id="eu12rawSelect">
+	<option disabled="disabled">-</option>
+      </select>
+    </p>
+    
+    <p>
+      Post-processed data:<br>
+      <select id="eu12ppSelect">
+	<option disabled="disabled">-</option>
+      </select>
+    </p>
+    
+    <p>Only 2d data is available so far.<br>
+    More parameters are coming soon such as wind gusts or CAPE.<br>
+    This data will be redesigned to be much more easy to use.</p>
+    
+    <h2>Vertical level</h2>
+    <p>todo...</p>
+    <img src="img/vlvl-sfc.png">
+    <img src="img/vlvl-regular.png">
+    <img src="img/vlvl-msl.png">
+    <img src="img/vlvl-model.png">
+    
+    <h2>Slicing</h2>
+    <p>todo...</p>
+    <img src="img/slicing-cube.png">
+    <img src="img/slicing-plan.png">
+    <img src="img/slicing-plan-vert.png">
+    <img src="img/slicing-vert.png">
+    <img src="img/slicing-line.png">
+    
+    
+    
+    <div class="exportbar">
+      <p class="outformat">
+	<b>Raster:</b> <a>GeoTiff</a> <a>JSON</a> <a>CSV</a> <a>GRIB</a> <a>NetCDF</a> 
+	<b>Vector contour:</b> <a>Shapefile</a> <a>GeoJSON</a>
+      </p>
+      <p>
+	<input type="text" id="url"> 
+	<a id="dlbutton" target="_blank">Download</a>
+      </p>
+    </div>
+    
+    
+    <!--<a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>-->
+  </body>
+</html>
