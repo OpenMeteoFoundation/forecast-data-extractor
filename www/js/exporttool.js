@@ -2,18 +2,26 @@ var lastRun;
 var baseUrl="http://data.openmeteoforecast.org/";
 var domain="eu12";
 var run="???";
-var frame="0";
+var frame="1";
 var format="tif";
 var param="???";
+var args="";
 
 function update_url () {
-  var url=baseUrl+domain+"/"+param+"."+run+"_"+frame+"."+format;
-  $("#url").val(url);
-  $("#dlbutton").attr("href",url);
+  var url=baseUrl+domain+"/"+param+"."+run+"_"+frame+".";
+
+  var exportUrl=url+format+args;
+//  var previewUrl=url+"png";
+
+  $("#url").val(exportUrl);
+  $("#dlbutton").attr("href",exportUrl);
+
+//  $("#previewImg").attr("src", previewUrl);
 }
 
 function update_format (format) {
   
+  args="";
   switch (format) {
     case "GeoTiff":
       window.format="tif";
@@ -36,6 +44,13 @@ function update_format (format) {
     case "GeoJSON":
       window.format="contour.json";
       break;
+  }
+
+  if (format=="JSON"||format=="CSV") {
+    var digits=window.prompt("Rounding : How many digits after the dot ?","0");
+    if (digits!=null) {
+      args="?digits="+digits;
+    }
   }
   update_url();
 }
@@ -99,7 +114,7 @@ $(document).ready(function() {
   var option = "<option value=\""+lastRun.id+"\">"+time_to_text(lastRun.time)+"</option>";
   $("#runSelect").append(option);
   
-  for (var i=0; i<73; i++) {
+  for (var i=1; i<73; i++) {
     var time = lastRun.time + i*3600000;
     option = "<option value=\""+i+"\">["+i+"] "+time_to_text(time)+"</option>";
     $("#frameSelect").append(option);
@@ -133,5 +148,9 @@ $(document).ready(function() {
     update_url();
   });
   
+  $("#url").change(function () {
+    $("#dlbutton").attr("href",$(this).val());
+  });
+
   update_url();
 });
